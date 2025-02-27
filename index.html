@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://maps.googleapis.com https://maps.gstatic.com https://fonts.googleapis.com https://fonts.gstatic.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' https://maps.googleapis.com https://maps.gstatic.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; img-src 'self' data: https://*.googleapis.com https://*.gstatic.com https://maps.gstatic.com;">
+    <title>Nearby Essential Places</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .settings-option {
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        .settings-option input[type="checkbox"] {
+            accent-color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-map-marker-alt"></i> Nearby Essentials</h1>
+            <p class="subtitle">Find important places around you</p>
+        </header>
+
+        <div class="search-container">
+            <div class="location-search">
+                <input type="text" id="location-search" placeholder="Search for a location">
+                <button id="location-search-btn" title="Search location"><i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="search-box">
+                <label for="radius-input">Radius (km):</label>
+                <input type="text" id="radius-input" value="5" min="1" max="50" placeholder="Enter radius in km">
+                <span class="unit">km</span>
+                <button id="search-btn">Search Area</button>
+            </div>
+            
+            <div class="filter-container">
+                <div class="filter-label">Filter by:</div>
+                <div class="filter-options" id="filter-options">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+            
+            <div class="settings-option">
+                <input type="checkbox" id="fake-filter" checked>
+                <label for="fake-filter">Filter out suspicious places</label>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div id="map-container">
+                <div id="map"></div>
+                <div class="map-controls">
+                    <button id="recenter-btn" title="Recenter map"><i class="fas fa-crosshairs"></i></button>
+                    <button id="custom-location-btn" title="Set custom location"><i class="fas fa-map-pin"></i></button>
+                    <button id="reset-btn" title="Reset app"><i class="fas fa-redo"></i></button>
+                    <button id="toggle-results-btn" class="mobile-only" title="Toggle results"><i class="fas fa-list"></i></button>
+                </div>
+            </div>
+            <div id="results-container">
+                <div class="results-header">
+                    <h2>Nearby Places</h2>
+                    <div class="sort-options">
+                        <label for="sort-select">Sort by:</label>
+                        <select id="sort-select">
+                            <option value="distance">Distance</option>
+                            <option value="name">Name</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="results-list">
+                    <div class="loading-indicator">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <span>Locating you...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Nearby Essentials | <button id="about-btn">About</button></p>
+    </footer>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJj-eKWrCphSMh367tjbAEbYvHzcmooQw&libraries=places&callback=initApp" async defer></script>
+</body>
+</html>
